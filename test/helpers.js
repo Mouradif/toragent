@@ -1,13 +1,13 @@
-var Promise = require('bluebird');
-var exec    = Promise.promisify(require('child_process').exec);
+const Promise = require('bluebird');
+const exec    = Promise.promisify(require('child_process').exec);
 
 exports.isProcessRunning = function(pid) {
-  var cmd = 'ps -p ' + pid;
-  var opts = {encoding: 'utf8', maxBuffer: 1000 * 1024};
+  const cmd = 'ps -p ' + pid;
+  const opts = {encoding: 'utf8', maxBuffer: 1000 * 1024};
 
-  return exec(cmd, opts).spread(function(stdout, sterr) {
+  return exec(cmd, opts).spread((stdout) => {
     return stdout.indexOf(pid) !== -1;
-  }).catch(function(err) {
+  }).catch(() => {
     return false;
   });
-}
+};
